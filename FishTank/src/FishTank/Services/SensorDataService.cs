@@ -44,6 +44,7 @@ namespace FishTank.Services
             return GetFishMotionPercentageHistory().Last();
         }
 
+
         public IEnumerable<IntHistoryModel> GetFishMotionPercentageHistory()
         {
             return fishMotionHistory ?? (fishMotionHistory = GetHistory(20, 40));

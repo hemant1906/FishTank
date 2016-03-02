@@ -7,6 +7,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FishTank.Services;
 
 namespace FishTank
 {
@@ -35,7 +36,8 @@ namespace FishTank
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
+            services.AddSingleton<IViewModelService, ViewModelService>();
+            services.AddSingleton<ISensorDataService, SensorDataService>();
             services.AddMvc();
         }
 
@@ -45,6 +47,10 @@ namespace FishTank
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+
+            if (env.IsDevelopment())
+                app.UseDeveloperExceptionPage();
+
             app.UseIISPlatformHandler();
 
             app.UseApplicationInsightsRequestTelemetry();
@@ -53,7 +59,17 @@ namespace FishTank
 
             app.UseStaticFiles();
 
-            app.UseMvc();
+
+            app.UseMvcWithDefaultRoute();
+            /*app.UseMvc( routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id}",
+                    defaults: new { controller = "Home", action = "Index" });
+            }
+                );*/
+            app.UseStatusCodePages();
         }
 
         // Entry point for the application.

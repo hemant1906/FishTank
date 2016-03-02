@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FishTank.Services
 {
-    interface ISensorDataService
+    public interface ISensorDataService
     {
         IntHistoryModel GetWaterTemperature();
         IEnumerable<IntHistoryModel> GetWaterTemperatureHistory();
@@ -15,5 +15,6 @@ namespace FishTank.Services
         IEnumerable<IntHistoryModel> GetWaterOpacityPercentageHistory();
         IntHistoryModel GetLightIntensityLumens();
         IEnumerable<IntHistoryModel> GetLightIntensityLumensHistory();
+        IntHistoryModel GetFishMotionPercentage();
     }
 }
