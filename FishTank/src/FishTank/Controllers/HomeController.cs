@@ -25,5 +25,12 @@ namespace FishTank.Controllers
 
                 );
         }
+
+        public IActionResult Feed(int foodAmount)
+        {
+            var model = viewModelService.GetDashboardViewModel();
+            model.LastFed = $"{DateTime.Now.Hour}:{ DateTime.Now.Minute }:{ DateTime.Now.Second}. Amount: { foodAmount} ";
+            return View("Index", model);
+        }
     }
 }
