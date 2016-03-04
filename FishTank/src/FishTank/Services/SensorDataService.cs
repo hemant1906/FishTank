@@ -21,7 +21,7 @@ namespace FishTank.Services
 
         public IEnumerable<IntHistoryModel> GetWaterTemperatureHistory()
         {
-            return waterTemperatureHistory ?? (waterTemperatureHistory = GetHistory(30, 39));
+            return waterTemperatureHistory ?? (waterTemperatureHistory = GetHistory(0, 45));
 
         }
 
@@ -47,7 +47,7 @@ namespace FishTank.Services
 
         public IEnumerable<IntHistoryModel> GetFishMotionPercentageHistory()
         {
-            return fishMotionHistory ?? (fishMotionHistory = GetHistory(20, 40));
+            return fishMotionHistory ?? (fishMotionHistory = GetHistory(0, 95));
         }
 
         public IntHistoryModel GetWaterOpacityPercentage()
@@ -57,7 +57,7 @@ namespace FishTank.Services
 
         public IEnumerable<IntHistoryModel> GetWaterOpacityPercentageHistory()
         {
-            return waterOpacityHistory ?? (waterOpacityHistory = GetHistory(60, 95));
+            return waterOpacityHistory ?? (waterOpacityHistory = GetHistory(0, 95));
         }
 
         public IntHistoryModel GetLightIntensityLumens()
@@ -67,7 +67,7 @@ namespace FishTank.Services
 
         public IEnumerable<IntHistoryModel> GetLightIntensityLumensHistory()
         {
-            return lightOpacityHistory ?? (lightOpacityHistory = GetHistory(120, 200));
+            return lightOpacityHistory ?? (lightOpacityHistory = GetHistory(0,4500));
         }
     }
 }

@@ -8,13 +8,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using FishTank.Services;
+using FishTank.Options;
 
 namespace FishTank
 {
     public class Startup
     {
+        private IHostingEnvironment hostingEnvironment;
         public Startup(IHostingEnvironment env)
         {
+            hostingEnvironment = env;
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json");
@@ -34,6 +37,14 @@ namespace FishTank
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
+            var configBuilder = new ConfigurationBuilder()
+                .AddJsonFile("alertThresholds.json")
+                .AddJsonFile($"alertThresholds{hostingEnvironment.EnvironmentName}.json", optional: true);
+
+            var configuration = configBuilder.Build();
+
+            services.Configure<ThresholdOptions>(configuration);
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddSingleton<IViewModelService, ViewModelService>();
